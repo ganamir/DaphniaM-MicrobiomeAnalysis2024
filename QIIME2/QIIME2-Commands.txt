@@ -1,0 +1,18 @@
+qiime tools import   --type 'SampleData[SequencesWithQuality]'   --input-path FASTQ_Files/   --input-format CasavaOneEightSingleLanePerSampleDirFmt   --output-path demux-single-end.qza
+
+qiime dada2 denoise-single   --i-demultiplexed-seqs demux-single-end.qza   --p-trunc-q 20   --o-representative-sequences rep-seqs-dada2.qza   --o-table table-dada2.qza   --o-denoising-stats stats-dada2.qza --p-trunc-len 251
+
+qiime feature-classifier classify-sklearn --i-reads rep-seqs-dada2.qza --i-classifier gg_2022_10_backbone_full_length.nb.qza --o-classification Taxonomy.qza --verbose
+
+qiime alignment mafft --i-sequences filtered_seqs.qza --o-alignment unfiltered_aligned_seqs.qza
+
+qiime phylogeny fasttree --i-alignment unfiltered_aligned_seqs.qza --o-tree unfiltered_unrooted_tree.qza
+
+qiime phylogeny midpoint-root --i-tree unfiltered_unrooted_tree.qza --o-rooted-tree unfiltered_rooted_tree.qza
+
+qiime tools export --input-path Taxonomy.qza --output-path phyloseq-data
+
+qiime tools export --input-path filtered-table.qza --output-path phyloseq-data
+
+biom convert -i phyloseq-data/feature-table.biom -o feature-table.txt --to-tsv
+
