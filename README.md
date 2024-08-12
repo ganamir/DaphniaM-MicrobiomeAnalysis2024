@@ -1,2 +1,2 @@
 # DaphniaM-MicrobiomeAnalysis2024
-DaphniaM-MicrobiomeAnalysis2024
+Daphnia Magna microbiome analysis data. To process raw FASTQ files, read in the commands seen in QIIME2/QIIME2-Commands.txt. To process all the outputs, R-code is provided in Daphnia_Microbiome_R_Code_Submission.R. phyloseq-data folder contains raw outputs post-FASTQ processing, while Input-Data contains the rest of the neccessary files for the data analysis - such as metadata, custom PCA data for Harrar script, and R0 values. Contact amir.gabidulin@wsu.edu if any issues rise up. 
